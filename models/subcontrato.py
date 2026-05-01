@@ -82,7 +82,7 @@ class Subcontrato(models.Model):
         for record in self:
             if record.state != 'activo':
                 continue
-            record.vencimiento_anticipado = record.fecha_fin > today
+            record.vencimiento_anticipado = record.fecha_fin >= today
             record.state = 'expirado'
 
     @api.model
