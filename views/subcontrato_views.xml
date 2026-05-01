@@ -45,6 +45,10 @@
                         <group string="Datos del contrato">
                             <field name="empresa_o_empleado_externa_o_externo"/>
                             <field name="tipo_trabajo"/>
+                            <field name="tipo_trabajo"/>
+                            <field name="otro_tipo_trabajo" 
+                                invisible="tipo_trabajo != 'otro'" 
+                                required="tipo_trabajo == 'otro'"/>
                             <field name="comunidad"/>
                         </group>
                         <group string="Vigencia y económico">

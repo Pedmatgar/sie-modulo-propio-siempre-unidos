@@ -25,11 +25,16 @@ class Subcontrato(models.Model):
             ('portero', 'Portero/a'),
             ('socorrista', 'Socorrista'),
             ('jardinero', 'Jardinero/a'),
+            ('mantenimiento', 'Mantenimiento'),
+            ('obrero', 'Obrero/a'),
             ('vigilante', 'Vigilante de seguridad'),
             ('otro', 'Otro'),
         ],
         string='Tipo de trabajo',
         required=True,
+    )
+    otro_tipo_trabajo = fields.Char(
+    string='Especificar otro trabajo',
     )
     comunidad = fields.Many2one(
         comodel_name='res.partner',
@@ -75,6 +80,11 @@ class Subcontrato(models.Model):
                 raise ValidationError(
                     'La fecha de finalización debe ser posterior a la fecha de inicio.'
                 )
+    @api.constrains('tipo_trabajo', 'otro_tipo_trabajo')
+    def _check_otro_tipo_trabajo(self):
+        for record in self:
+            if record.tipo_trabajo == 'otro' and not record.otro_tipo_trabajo:
+                raise ValidationError("Si selecciona 'Otro', debe especificar el tipo de trabajo.")
 
     @api.model_create_multi
     def create(self, vals_list):
