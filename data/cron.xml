@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Scheduled action: remove expired contracts daily -->
+    <record id="ir_cron_eliminar_contratos_expirados" model="ir.cron">
+        <field name="name">Subcontratos: eliminar contratos expirados</field>
+        <field name="model_id" ref="model_subcontrato_subcontrato"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_eliminar_contratos_expirados()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+    </record>
+
+</odoo>
