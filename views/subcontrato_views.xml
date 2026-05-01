@@ -31,7 +31,7 @@
                             string="Expirar contrato"
                             type="object"
                             class="oe_highlight"
-                            attrs="{'invisible': [('state', '!=', 'activo')]}"/>
+                            invisible="state != 'activo'"/>
                     <field name="state" widget="statusbar"
                            statusbar_visible="activo,expirado"/>
                 </header>
@@ -51,7 +51,7 @@
                             <field name="fecha_inicio"/>
                             <field name="fecha_fin"/>
                             <field name="importe"/>
-                            <field name="vencimiento_anticipado" attrs="{'invisible': [('state', '!=', 'expirado')]}"/>
+                            <field name="vencimiento_anticipado" invisible="state != 'expirado'"/>
                         </group>
                     </group>
                     <group string="Notas">
