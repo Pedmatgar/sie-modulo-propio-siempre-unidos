@@ -1,20 +1,14 @@
 {
-    'name': "Subcontratacion",
+    'name': "Subcontrataciones",
     'version': '1.0',
     'depends': ['base'],
-    'author': "SIEmpre unido",
+    'author': "SIEmpre Unidos",
     'category': 'Category',
     'description': """
     Description text
     """,
-    # data files always loaded at installation
-    'data': [
-
-    ],
-    # data files containing optionally loaded demonstration data
-    'demo': [
-
-    ],
-    'installable': True,
+    'data': [],
+    'demo': [],
+    'installable': True, 
     'application': True
 }
