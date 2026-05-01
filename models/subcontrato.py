@@ -31,7 +31,8 @@ class Subcontrato(models.Model):
         string='Tipo de trabajo',
         required=True,
     )
-    comunidad = fields.Char(
+    comunidad = fields.Many2one(
+        comodel_name='res.partner',
         string='Comunidad asignada',
         required=True,
     )
