@@ -1,7 +1,7 @@
 {
     'name': "Subcontrataciones",
     'version': '1.0',
-    'depends': ['base'],
+    'depends': ['base', 'contacts'],
     'author': "SIEmpre Unidos",
     'category': 'Human Resources',
     'description': """
