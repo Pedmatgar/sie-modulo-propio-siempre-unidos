@@ -76,6 +76,27 @@ class Subcontrato(models.Model):
                     'La fecha de finalización debe ser posterior a la fecha de inicio.'
                 )
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        records._auto_expirar_si_vencido()
+        return records
+
+    def write(self, vals):
+        res = super().write(vals)
+        if 'fecha_fin' in vals or 'state' in vals:
+            self._auto_expirar_si_vencido()
+        return res
+
+    def _auto_expirar_si_vencido(self):
+        """Expire any active contracts whose end date has passed."""
+        today = fields.Date.today()
+        to_expire = self.filtered(
+            lambda r: r.state == 'activo' and r.fecha_fin < today
+        )
+        if to_expire:
+            super(Subcontrato, to_expire).write({'state': 'expirado', 'vencimiento_anticipado': False})
+
     def action_expirar(self):
         """Manually expire the contract. Marks vencimiento_anticipado if the end date has not yet passed."""
         today = fields.Date.today()
@@ -89,5 +110,5 @@ class Subcontrato(models.Model):
     def _cron_eliminar_contratos_expirados(self):
         """Scheduled action: expire contracts whose end date has passed."""
         today = fields.Date.today()
-        expirados = self.search([('fecha_fin', '<=', today), ('state', '=', 'activo')])
+        expirados = self.search([('fecha_fin', '<', today), ('state', '=', 'activo')])
         expirados.write({'state': 'expirado', 'vencimiento_anticipado': False})
