@@ -14,7 +14,8 @@ class Subcontrato(models.Model):
         copy=False,
         default='Nuevo',
     )
-    empleado_externo = fields.Char(
+    empleado_externo = fields.Many2one(
+        comodel_name='res.partner',
         string='Empleado externo',
         required=True,
     )

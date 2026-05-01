@@ -62,7 +62,7 @@
         <field name="arch" type="xml">
             <search string="Buscar subcontratos">
                 <field name="name" string="Referencia"/>
-                <field name="empleado_externo"/>
+                <field name="empleado_externo" filter_domain="[('empleado_externo.name', 'ilike', self)]"/>
                 <field name="comunidad"/>
                 <filter string="Activos" name="filter_activos"
                         domain="[('state','=','activo')]"/>
