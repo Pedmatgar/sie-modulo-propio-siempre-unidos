@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Scheduled action: remove expired contracts daily -->
+    <!-- Scheduled action: expire contracts whose end date has passed -->
     <record id="ir_cron_eliminar_contratos_expirados" model="ir.cron">
-        <field name="name">Subcontratos: eliminar contratos expirados</field>
+        <field name="name">Subcontratos: marcar contratos expirados</field>
         <field name="model_id" ref="model_subcontrato_subcontrato"/>
         <field name="state">code</field>
         <field name="code">model._cron_eliminar_contratos_expirados()</field>

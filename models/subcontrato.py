@@ -61,6 +61,12 @@ class Subcontrato(models.Model):
         required=True,
         tracking=True,
     )
+    vencimiento_anticipado = fields.Boolean(
+        string='Vencimiento anticipado',
+        default=False,
+        readonly=True,
+        help='Indica que el contrato fue expirado manualmente antes de alcanzar su fecha de finalización.',
+    )
 
     @api.constrains('fecha_inicio', 'fecha_fin')
     def _check_fechas(self):
@@ -70,9 +76,18 @@ class Subcontrato(models.Model):
                     'La fecha de finalización debe ser posterior a la fecha de inicio.'
                 )
 
+    def action_expirar(self):
+        """Manually expire the contract. Marks vencimiento_anticipado if the end date has not yet passed."""
+        today = fields.Date.today()
+        for record in self:
+            if record.state != 'activo':
+                continue
+            record.vencimiento_anticipado = record.fecha_fin > today
+            record.state = 'expirado'
+
     @api.model
     def _cron_eliminar_contratos_expirados(self):
-        """Scheduled action: remove contracts whose end date has passed."""
+        """Scheduled action: expire contracts whose end date has passed."""
         today = fields.Date.today()
-        expirados = self.search([('fecha_fin', '<', today), ('state', '=', 'activo')])
-        expirados.unlink()
+        expirados = self.search([('fecha_fin', '<=', today), ('state', '=', 'activo')])
+        expirados.write({'state': 'expirado', 'vencimiento_anticipado': False})
