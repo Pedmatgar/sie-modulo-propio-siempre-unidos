@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree / List view -->
+    <record id="view_subcontrato_tree" model="ir.ui.view">
+        <field name="name">subcontrato.subcontrato.tree</field>
+        <field name="model">subcontrato.subcontrato</field>
+        <field name="arch" type="xml">
+            <tree string="Subcontratos activos" decoration-warning="state == 'expirado'">
+                <field name="name"/>
+                <field name="empleado_externo"/>
+                <field name="tipo_trabajo"/>
+                <field name="comunidad"/>
+                <field name="fecha_inicio"/>
+                <field name="fecha_fin"/>
+                <field name="importe"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view -->
+    <record id="view_subcontrato_form" model="ir.ui.view">
+        <field name="name">subcontrato.subcontrato.form</field>
+        <field name="model">subcontrato.subcontrato</field>
+        <field name="arch" type="xml">
+            <form string="Subcontrato">
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="activo,expirado"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Referencia del contrato"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Datos del contrato">
+                            <field name="empleado_externo"/>
+                            <field name="tipo_trabajo"/>
+                            <field name="comunidad"/>
+                        </group>
+                        <group string="Vigencia y económico">
+                            <field name="fecha_inicio"/>
+                            <field name="fecha_fin"/>
+                            <field name="importe"/>
+                        </group>
+                    </group>
+                    <group string="Notas">
+                        <field name="notas" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search view -->
+    <record id="view_subcontrato_search" model="ir.ui.view">
+        <field name="name">subcontrato.subcontrato.search</field>
+        <field name="model">subcontrato.subcontrato</field>
+        <field name="arch" type="xml">
+            <search string="Buscar subcontratos">
+                <field name="name" string="Referencia"/>
+                <field name="empleado_externo"/>
+                <field name="comunidad"/>
+                <filter string="Activos" name="filter_activos"
+                        domain="[('state','=','activo')]"/>
+                <filter string="Expirados" name="filter_expirados"
+                        domain="[('state','=','expirado')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Tipo de trabajo" name="group_tipo"
+                            context="{'group_by': 'tipo_trabajo'}"/>
+                    <filter string="Comunidad" name="group_comunidad"
+                            context="{'group_by': 'comunidad'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_subcontrato" model="ir.actions.act_window">
+        <field name="name">Subcontratos</field>
+        <field name="res_model">subcontrato.subcontrato</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state','=','activo')]</field>
+        <field name="context">{'search_default_filter_activos': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay subcontratos activos.
+            </p>
+            <p>
+                Añada un nuevo subcontrato pulsando el botón <strong>Nuevo</strong>.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_subcontrataciones_root"
+              name="Subcontrataciones"
+              sequence="50"/>
+
+    <menuitem id="menu_subcontrato_list"
+              name="Subcontratos activos"
+              parent="menu_subcontrataciones_root"
+              action="action_subcontrato"
+              sequence="10"/>
+
+</odoo>
