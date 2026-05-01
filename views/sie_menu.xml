@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Top-level menu -->
+    <menuitem
+        id="menu_sie_root"
+        name="SIE"
+        sequence="10"
+    />
+
+    <!-- Members menu item -->
+    <menuitem
+        id="menu_sie_member"
+        name="Miembros"
+        parent="menu_sie_root"
+        action="action_sie_member"
+        sequence="10"
+    />
+
+</odoo>
