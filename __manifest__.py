@@ -7,8 +7,8 @@
     'description': """
         Módulo de gestión de subcontratos con personal externo.
         Permite registrar, consultar y eliminar automáticamente los contratos
-        activos de empleados externos (limpiadores, porteros, socorristas, etc.)
-        asignados a las comunidades gestionadas por la empresa.
+        activos de empresas (De mantenimiento, de reparación, etc.) o de 
+        empleados particulares asignados a las comunidades gestionadas por la empresa.
     """,
     'data': [
         'security/ir.model.access.csv',

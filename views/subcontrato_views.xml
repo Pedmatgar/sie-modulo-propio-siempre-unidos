@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <tree string="Subcontratos activos" decoration-warning="state == 'expirado'">
                 <field name="name"/>
-                <field name="empleado_externo"/>
+                <field name="empresa_o_empleado_externa_o_externo"/>
                 <field name="tipo_trabajo"/>
                 <field name="comunidad"/>
                 <field name="fecha_inicio"/>
@@ -43,7 +43,7 @@
                     </div>
                     <group>
                         <group string="Datos del contrato">
-                            <field name="empleado_externo"/>
+                            <field name="empresa_o_empleado_externa_o_externo"/>
                             <field name="tipo_trabajo"/>
                             <field name="comunidad"/>
                         </group>
@@ -69,7 +69,7 @@
         <field name="arch" type="xml">
             <search string="Buscar subcontratos">
                 <field name="name" string="Referencia"/>
-                <field name="empleado_externo" filter_domain="[('empleado_externo.name', 'ilike', self)]"/>
+                <field name="empresa_o_empleado_externa_o_externo" filter_domain="[('empresa_o_empleado_externa_o_externo.name', 'ilike', self)]"/>
                 <field name="comunidad"/>
                 <filter string="Activos" name="filter_activos"
                         domain="[('state','=','activo')]"/>
