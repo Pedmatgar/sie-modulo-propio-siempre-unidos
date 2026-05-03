@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree / List view -->
+    <record id="view_subcontrato_pendiente_tree" model="ir.ui.view">
+        <field name="name">subcontrato.pendiente.tree</field>
+        <field name="model">subcontrato.pendiente</field>
+        <field name="arch" type="xml">
+            <tree string="Subcontrataciones pendientes">
+                <field name="tipo_trabajo"/>
+                <field name="otro_tipo_trabajo" optional="hide"/>
+                <field name="comunidad"/>
+                <field name="fecha_inicio"/>
+                <field name="contacto"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view -->
+    <record id="view_subcontrato_pendiente_form" model="ir.ui.view">
+        <field name="name">subcontrato.pendiente.form</field>
+        <field name="model">subcontrato.pendiente</field>
+        <field name="arch" type="xml">
+            <form string="Subcontratación pendiente">
+                <sheet>
+                    <group>
+                        <group string="Datos de la subcontratación">
+                            <field name="tipo_trabajo"/>
+                            <field name="otro_tipo_trabajo"
+                                invisible="tipo_trabajo != 'otro'"
+                                required="tipo_trabajo == 'otro'"/>
+                            <field name="comunidad"/>
+                        </group>
+                        <group string="Contacto y fecha">
+                            <field name="contacto"
+                                domain="[('category_id.name', '=', 'Externo')]"/>
+                            <field name="fecha_inicio"/>
+                        </group>
+                    </group>
+                    <group string="Notas">
+                        <field name="notas" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search view -->
+    <record id="view_subcontrato_pendiente_search" model="ir.ui.view">
+        <field name="name">subcontrato.pendiente.search</field>
+        <field name="model">subcontrato.pendiente</field>
+        <field name="arch" type="xml">
+            <search string="Buscar subcontrataciones pendientes">
+                <field name="comunidad"/>
+                <field name="contacto"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Tipo de trabajo" name="group_tipo"
+                            context="{'group_by': 'tipo_trabajo'}"/>
+                    <filter string="Comunidad" name="group_comunidad"
+                            context="{'group_by': 'comunidad'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_subcontrato_pendiente" model="ir.actions.act_window">
+        <field name="name">Subcontrataciones pendientes</field>
+        <field name="res_model">subcontrato.pendiente</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay subcontrataciones pendientes.
+            </p>
+            <p>
+                Añada una nueva subcontratación pendiente pulsando el botón <strong>Nuevo</strong>.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_subcontrato_pendiente"
+              name="Subcontrataciones pendientes"
+              parent="menu_subcontrataciones_root"
+              action="action_subcontrato_pendiente"
+              sequence="30"/>
+
+</odoo>

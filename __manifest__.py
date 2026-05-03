@@ -13,6 +13,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/subcontrato_views.xml',
+        'views/subcontrato_pendiente_views.xml',
         'data/cron.xml',
     ],
     'demo': [],

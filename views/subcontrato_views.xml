@@ -43,7 +43,8 @@
                     </div>
                     <group>
                         <group string="Datos del contrato">
-                            <field name="empresa_o_empleado_externa_o_externo"/>
+                            <field name="empresa_o_empleado_externa_o_externo"
+                                domain="[('category_id.name', '=', 'Externo')]"/>
                             <field name="tipo_trabajo"/>
                             <field name="otro_tipo_trabajo" 
                                 invisible="tipo_trabajo != 'otro'" 
