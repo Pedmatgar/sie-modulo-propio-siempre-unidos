@@ -51,7 +51,7 @@ class SubcontratoPendiente(models.Model):
         self.ensure_one()
         notas_partes = []
         if self.presupuesto:
-            notas_partes.append('Presupuesto: %.2f €' % self.presupuesto)
+            notas_partes.append(f'Presupuesto: {self.presupuesto:.2f} €')
         if self.notas:
             notas_partes.append(self.notas)
         notas_combinadas = '\n'.join(notas_partes) if notas_partes else False
