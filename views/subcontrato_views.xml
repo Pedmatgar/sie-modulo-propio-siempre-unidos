@@ -106,17 +106,16 @@
         </field>
     </record>
 
-    <!-- Action: all contracts (active + expired) -->
+    <!-- Action: expired contracts -->
     <record id="action_subcontrato_todos" model="ir.actions.act_window">
-        <field name="name">Todos los subcontratos</field>
+        <field name="name">Subcontratos expirados</field>
         <field name="res_model">subcontrato.subcontrato</field>
         <field name="view_mode">tree,form</field>
+        <field name="domain">[('state','=','expirado')]</field>
+        <field name="context">{'search_default_filter_expirados': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                No hay subcontratos registrados.
-            </p>
-            <p>
-                Añada un nuevo subcontrato pulsando el botón <strong>Nuevo</strong>.
+                No hay subcontratos expirados.
             </p>
         </field>
     </record>
@@ -133,7 +132,7 @@
               sequence="10"/>
 
     <menuitem id="menu_subcontrato_todos"
-              name="Todos los subcontratos"
+              name="Subcontratos expirados"
               parent="menu_subcontrataciones_root"
               action="action_subcontrato_todos"
               sequence="20"/>
