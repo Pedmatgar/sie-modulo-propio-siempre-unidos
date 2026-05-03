@@ -12,6 +12,11 @@
                 <field name="comunidad"/>
                 <field name="fecha_inicio"/>
                 <field name="contacto"/>
+                <field name="presupuesto"/>
+                <button name="action_crear_subcontrato"
+                        string="Crear subcontrato"
+                        type="object"
+                        icon="fa-file-text-o"/>
             </tree>
         </field>
     </record>
@@ -22,6 +27,12 @@
         <field name="model">subcontrato.pendiente</field>
         <field name="arch" type="xml">
             <form string="Subcontratación pendiente">
+                <header>
+                    <button name="action_crear_subcontrato"
+                            string="Crear subcontrato"
+                            type="object"
+                            class="oe_highlight"/>
+                </header>
                 <sheet>
                     <group>
                         <group string="Datos de la subcontratación">
@@ -35,6 +46,7 @@
                             <field name="contacto"
                                 domain="[('category_id.name', '=', 'Externo')]"/>
                             <field name="fecha_inicio"/>
+                            <field name="presupuesto"/>
                         </group>
                     </group>
                     <group string="Notas">

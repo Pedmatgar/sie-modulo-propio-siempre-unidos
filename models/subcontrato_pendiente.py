@@ -39,9 +39,38 @@ class SubcontratoPendiente(models.Model):
         domain="[('category_id.name', '=', 'Externo')]",
         required=True,
     )
+    presupuesto = fields.Float(
+        string='Presupuesto (€)',
+        digits=(10, 2),
+    )
     notas = fields.Text(
         string='Notas',
     )
+
+    def action_crear_subcontrato(self):
+        self.ensure_one()
+        notas_partes = []
+        if self.presupuesto:
+            notas_partes.append('Presupuesto: %.2f €' % self.presupuesto)
+        if self.notas:
+            notas_partes.append(self.notas)
+        notas_combinadas = '\n'.join(notas_partes) if notas_partes else False
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Nuevo subcontrato',
+            'res_model': 'subcontrato.subcontrato',
+            'view_mode': 'form',
+            'target': 'current',
+            'context': {
+                'default_tipo_trabajo': self.tipo_trabajo,
+                'default_otro_tipo_trabajo': self.otro_tipo_trabajo,
+                'default_comunidad': self.comunidad.id,
+                'default_empresa_o_empleado_externa_o_externo': self.contacto.id,
+                'default_fecha_inicio': self.fecha_inicio,
+                'default_notas': notas_combinadas,
+            },
+        }
 
     @api.constrains('tipo_trabajo', 'otro_tipo_trabajo')
     def _check_otro_tipo_trabajo(self):
